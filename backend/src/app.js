@@ -19,7 +19,7 @@ app.use(express.json()); // middleware to parse JSON bodies
 
 // routes
 app.use("/api/v1/auth/", authRouter)
-app.use("api/v1/messages", messageRouter)
+app.use("/api/v1/messages", messageRouter)
 
 // make ready for production
 
@@ -31,7 +31,16 @@ if(process.env.NODE_ENV === 'production'){
   });
 }
 
-app.listen(PORT, () => {
-  console.log('Server is running on port ' + PORT);
-  connectDB()
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log('Server is running on port ' + PORT);
+    });
+  } catch (error) {
+    console.error('Failed to connect to database:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
