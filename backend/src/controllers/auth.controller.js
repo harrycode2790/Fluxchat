@@ -39,8 +39,11 @@ export const signUp = async (req, res) => {
     });
 
     if (newUser) {
-      generateToken(newUser._id, res);
-      await newUser.save();
+      // generateToken(newUser._id, res);
+      // await newUser.save();
+      const savedUser = await newUser.save();
+      generateToken(savedUser._id, res);
+      
       res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
@@ -50,7 +53,7 @@ export const signUp = async (req, res) => {
       });
 
       // todo: send welcome email to User
-      
+
     } else {
       res.status(500).json({ message: "Failed to create user." });
     }
