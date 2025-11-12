@@ -5,6 +5,7 @@ import path from 'path';
 
 import authRouter from './routes/auth.routes.js';
 import messageRouter from './routes/message.routes.js';
+import connectDB from './lib/db.js';
 
 dotenv.config();
 
@@ -13,8 +14,12 @@ const ___dirname = path.resolve();
 
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json()); // middleware to parse JSON bodies
+
+
+// routes
 app.use("/api/v1/auth/", authRouter)
-app.use("api/v1/messages", messageRouter)
+app.use("/api/v1/messages", messageRouter)
 
 // make ready for production
 
@@ -26,6 +31,16 @@ if(process.env.NODE_ENV === 'production'){
   });
 }
 
-app.listen(PORT, () => {
-  console.log('Server is running on port ' + PORT);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log('Server is running on port ' + PORT);
+    });
+  } catch (error) {
+    console.error('Failed to connect to database:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
