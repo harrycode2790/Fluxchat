@@ -8,6 +8,7 @@ import messageRouter from './routes/message.routes.js';
 import connectDB from './lib/db.js';
 import { ENV } from './lib/env.js';
 import userRouter from './routes/user.routes.js';
+import { arcjectMiddleware } from './middlewares/arcject.middleware.js';
 
 
 
@@ -18,7 +19,7 @@ const PORT = ENV.PORT || 3000;
 
 app.use(express.json()); // middleware to parse JSON bodies
 app.use(cookieParser()); // middleware to parse cookies
-
+app.use(arcjectMiddleware) // middleware FRom aject
 // routes
 app.use("/api/v1/auth/", authRouter)
 app.use("/api/v1/messages", messageRouter)
