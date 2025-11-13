@@ -76,14 +76,13 @@ export const signUp = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
-  
+ 
   try {
 
      if (!email || !password) {
       return res.status(400).json({ message: "Email and password are required." });
     }
-    
+
     const user = await User.findOne({ email });
 
     if (!user) return res.status(400).json({ message: "Invalid Credentails." });
