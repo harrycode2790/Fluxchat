@@ -39,6 +39,19 @@ export const sendMessage = async (req, res) => {
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
+    if (!text && !image) {
+      return res.status(400).json({ message: "text or image is required" });
+    }
+
+    if (senderId.equals(receiverId)) {
+      return res.status(400).json({ message: "Cannot send image to yourself" });
+    }
+
+    const receiverExists = await User.exists({ _id: receiverId });
+    if (!receiverExists) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
     let imageUrl;
     if (image) {
       // upload base64 image to cloudinary
@@ -83,12 +96,10 @@ export const getChatPartners = async (req, res) => {
       ),
     ];
 
-
     // fetch user details for each chat partner and preserve order
-    const chatPartners = await User.find({ _id: { $in: chatPartnerIds } }).select(
-      "fullName  profilePic "
-    );
-
+    const chatPartners = await User.find({
+      _id: { $in: chatPartnerIds },
+    }).select("fullName  profilePic ");
 
     // order chatPartners to match chatPartnerIds (most recent first based on messages)
     const orderedChatPartners = chatPartnerIds
@@ -96,10 +107,7 @@ export const getChatPartners = async (req, res) => {
       .filter(Boolean);
 
     res.status(200).json(orderedChatPartners);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-
-
 };
