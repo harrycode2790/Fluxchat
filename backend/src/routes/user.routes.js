@@ -7,4 +7,6 @@ const userRouter = Router();
 userRouter.put("/profie/update", authorize, updateUserProfilePic );
 
 
+
+
 export default userRouter;
