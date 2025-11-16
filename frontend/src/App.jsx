@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import { useAuthStore } from "./store/useAuthStore";
 import PageLoader from "./components/PageLoader";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
@@ -38,6 +39,10 @@ function App() {
         <Route
           path="/signup"
           element={!authUser ? <SignUpPage /> : <Navigate to={"/"} />}
+        />
+        <Route
+          path="/admin/dashboard"
+          element={authUser?.role === "admin" ? <AdminPage/> : <Navigate to={"/login"} />}
         />
       </Routes>
 
