@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@property --border-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+
+.input {
+  @apply w-full bg-slate-800/50 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-slate-200 placeholder-slate-400 focus:ring-2 focus:ring-brandColor focus:border-transparent;
+}
+
+.auth-input-icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 size-5;
+}
+
+.auth-input-label {
+  @apply block text-sm font-medium text-slate-300 mb-2;
+}
+
+.auth-badge {
+  @apply inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-brandColor/20 text-brandColor;
+}
+
+.auth-btn {
+  @apply w-full bg-brandColor text-white rounded-lg py-2.5 font-medium
+  hover:bg-green-600 focus:ring-2 focus:ring-brandColor;
+}
+
+.auth-link {
+  @apply px-4 py-2 inline-block bg-brandColor/10 rounded-lg text-brandColor
+  hover:text-brandColor text-sm transition-colors;
+}

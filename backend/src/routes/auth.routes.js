@@ -4,9 +4,6 @@ import { authorize } from "../middlewares/auth.middleware.js";
 
 const authRouter = Router();
 
-authRouter.get("/test", (req, res) => {
-    res.status(200).json({message: "testing this route out"})
-})
 
 authRouter.post("/sign-up", signUp);
 

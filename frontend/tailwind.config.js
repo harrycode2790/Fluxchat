@@ -5,8 +5,19 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: { brandColor: "#4ade80", },
+      animation: {
+        border: "border 4s linear infinite",
+      },
+      keyframes: {
+        border: {
+          to: { "--border-angle": "360deg" },
+        },
+      },
+      colors: {
+        brandColor: "#4ade80",
+      },
     },
   },
+
   plugins: [daisyui],
 };
