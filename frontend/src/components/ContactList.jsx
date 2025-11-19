@@ -11,7 +11,6 @@ function ContactList() {
     getAllContacts();
   }, [getAllContacts]);
 
-  console.log({ allContacts });
 
   if (isUsersLoading) return <UsersLoadingSkeleton />;
   return (
@@ -33,7 +32,6 @@ function ContactList() {
                 {contact.fullName}
               </h4>
 
-              <p className="text-xs text-brandColor truncate">{contact.bio}</p>
             </div>
           </div>
         </div>

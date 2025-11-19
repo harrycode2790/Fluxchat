@@ -15,32 +15,44 @@ export const useChatStore = create((set, get) => ({
   toggleSound: () => {
     localStorage.setItem("isSoundEnabled", !get().isSoundEnabled);
     set({ isSoundEnabled: !get().isSoundEnabled });
-  }, 
+  },
 
   setActiveTab: (tab) => set({ activeTab: tab }),
   setSelectedUser: (selectedUser) => set({ selectedUser }),
 
-  getAllContacts: async() => {
+  getAllContacts: async () => {
     try {
-        set({isUserLoading: true})
-        const res = await axiosInstance.get("/messages/contacts")
-        set({ allContacts: res.data })
+      set({ isUserLoading: true });
+      const res = await axiosInstance.get("/messages/contacts");
+      set({ allContacts: res.data });
     } catch (error) {
-        toast.error(error.response.data.messages)
-    }finally{
-        set({isUserLoading : false})
-    }
-  },
-  getChatPartners: async() => {
-    try {
-        set({isUserLoading: true})
-        const res = await axiosInstance.get("/messages/chats")
-        set({ chats: res.data })
-    } catch (error) {
-        toast.error(error.response.data.messages)
-    }finally{
-        set({isUserLoading : false})
+      toast.error(error.response.data.messages);
+    } finally {
+      set({ isUserLoading: false });
     }
   },
 
+  getChatPartners: async () => {
+    try {
+      set({ isUserLoading: true });
+      const res = await axiosInstance.get("/messages/chats");
+      set({ chats: res.data });
+    } catch (error) {
+      toast.error(error.response.data.messages);
+    } finally {
+      set({ isUserLoading: false });
+    }
+  },
+
+  getMessagesByUserId: async (userToChatId) => {
+    set({ isMessagesLoading: true });
+    try {
+      const res = await axiosInstance.get(`/messages/user/${userToChatId}`);
+      set({ messages: res.data });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "something went wrong");
+    } finally {
+      set({ isMessagesLoading: false });
+    }
+  },
 }));

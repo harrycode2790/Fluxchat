@@ -11,8 +11,6 @@ function ChatsList() {
     getChatPartners();
   }, [getChatPartners]);
 
-  console.log({ chats });
-
   if (isUsersLoading) return <UsersLoadingSkeleton />;
   if (chats.length === 0) return <NoChatsFound />;
   return (
@@ -33,8 +31,6 @@ function ChatsList() {
               <h4 className="text-slate-200 font-medium truncate">
                 {chat.fullName}
               </h4>
-
-              <p className="text-xs text-brandColor truncate">{chat.bio}</p>
             </div>
           </div>
         </div>

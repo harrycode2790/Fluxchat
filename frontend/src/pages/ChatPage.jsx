@@ -1,3 +1,5 @@
+import { useChatStore } from "../store/useChatStore";
+import { ArrowLeft } from "lucide-react";
 import BorderAnimatedContainer from "../components/BorderAnimatedContaine";
 import ProfileHeader from "../components/ProfileHeader";
 import ActiveTabSwitch from "../components/ActiveTabSwitch";
@@ -5,16 +7,20 @@ import ChatsList from "../components/ChatsList";
 import ContactList from "../components/ContactList";
 import ChatContainer from "../components/ChatContainer";
 import NoConversationPlaceholder from "../components/NoConversationPlaceholder";
-import { useChatStore } from "../store/useChatStore";
 
 function ChatPage() {
   const { activeTab, selectedUser } = useChatStore();
-
+  
   return (
     <div className="relative w-full max-w-6xl h-[800px]">
       <BorderAnimatedContainer>
         {/* LEFT SIDE */}
-        <div className="w-80 bg-gray-800/50 backdrop-blur-sm flex flex-col">
+        <div
+          className={`
+            w-80 bg-gray-800/50 backdrop-blur-sm flex flex-col
+            ${selectedUser ? "hidden md:flex" : "flex"}
+          `}
+        >
           <ProfileHeader />
           <ActiveTabSwitch />
 
@@ -24,8 +30,19 @@ function ChatPage() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex-1 flex flex-col bg-gray-900/50 backdrop-blur-sm">
-          {selectedUser ? <ChatContainer /> : <NoConversationPlaceholder />}
+        <div
+          className={`
+            flex-1 flex flex-col bg-gray-900/50 backdrop-blur-sm
+            ${selectedUser ? "block" : "hidden md:flex"}
+          `}
+        >
+          {selectedUser ? (
+            <> 
+             <ChatContainer />
+            </>
+          ) : (
+            <NoConversationPlaceholder />
+          )}
         </div>
       </BorderAnimatedContainer>
     </div>
