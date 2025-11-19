@@ -12,10 +12,11 @@ import { arcjectMiddleware } from "./middlewares/arcject.middleware.js";
 
 const app = express();
 const ___dirname = path.resolve();
-
 const PORT = ENV.PORT || 3000;
 
-app.use(express.json()); // middleware to parse JSON bodies
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+; // middleware to parse JSON bodies
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(cookieParser()); // middleware to parse cookies
 app.use(arcjectMiddleware); // middleware FRom aject

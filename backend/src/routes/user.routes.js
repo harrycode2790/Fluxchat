@@ -4,7 +4,7 @@ import { authorize } from "../middlewares/auth.middleware.js";
 
 const userRouter = Router();
 
-userRouter.put("/profie/update", authorize, updateUserProfilePic );
+userRouter.put("/profile/update", authorize, updateUserProfilePic );
 
 
 

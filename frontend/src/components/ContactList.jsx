@@ -1,8 +1,45 @@
+import { useEffect } from "react";
+import { useChatStore } from "../store/useChatStore";
+import UsersLoadingSkeleton from "./UsersLoadingSkeleton";
+import NoChatsFound from "./NoChatsFound";
 
 function ContactList() {
+    const { getAllContacts, allContacts, isUsersLoading, setSelectedUser } =
+    useChatStore();
+
+  useEffect(() => {
+    getAllContacts();
+  }, [getAllContacts]);
+
+  console.log({ allContacts });
+
+  if (isUsersLoading) return <UsersLoadingSkeleton />;
   return (
-    <div>ContactList</div>
-  )
+    <>
+      {allContacts.map((contact) => (
+        <div
+          key={contact._id}
+          className="bg-green-500/10 p-4 rounded-lg cursor-pointer hover:bg-green-500/20 transition-colors"
+          onClick={() => setSelectedUser(contact)}
+        >
+          <div className="flex items-center gap-3">
+            <div className="size-12 rounded-full avatar">
+              <img src={contact.profilePic || "/avatar.png"} alt={contact.fullName} />
+            </div>
+
+            {/* NAME + BIO stacked vertically */}
+            <div className="flex flex-col">
+              <h4 className="text-slate-200 font-medium truncate">
+                {contact.fullName}
+              </h4>
+
+              <p className="text-xs text-brandColor truncate">{contact.bio}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
 }
 
 export default ContactList

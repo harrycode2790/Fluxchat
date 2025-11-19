@@ -99,7 +99,7 @@ export const getChatPartners = async (req, res) => {
     // fetch user details for each chat partner and preserve order
     const chatPartners = await User.find({
       _id: { $in: chatPartnerIds },
-    }).select("fullName  profilePic ");
+    }).select("fullName  profilePic bio ");
 
     // order chatPartners to match chatPartnerIds (most recent first based on messages)
     const orderedChatPartners = chatPartnerIds
