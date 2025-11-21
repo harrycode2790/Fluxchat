@@ -2,48 +2,80 @@ export function createWelcomeEmailTemplate(name, clientURL) {
   return `
   <!DOCTYPE html>
   <html lang="en">
+
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Messenger</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to FluxChat</title>
   </head>
-  <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
-    <div style="background: linear-gradient(to right, #36D1DC, #5B86E5); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
-      <img src="https://img.freepik.com/free-vector/hand-drawn-message-element-vector-cute-sticker_53876-118344.jpg?t=st=1741295028~exp=1741298628~hmac=0d076f885d7095f0b5bc8d34136cd6d64749455f8cb5f29a924281bafc11b96c&w=1480" alt="Messenger Logo" style="width: 80px; height: 80px; margin-bottom: 20px; border-radius: 50%; background-color: white; padding: 10px;">
-      <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 500;">Welcome to Messenger!</h1>
-    </div>
-    <div style="background-color: #ffffff; padding: 35px; border-radius: 0 0 12px 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-      <p style="font-size: 18px; color: #5B86E5;"><strong>Hello ${name},</strong></p>
-      <p>We're excited to have you join our messaging platform! Messenger connects you with friends, family, and colleagues in real-time, no matter where they are.</p>
-      
-      <div style="background-color: #f8f9fa; padding: 25px; border-radius: 10px; margin: 25px 0; border-left: 4px solid #36D1DC;">
-        <p style="font-size: 16px; margin: 0 0 15px 0;"><strong>Get started in just a few steps:</strong></p>
-        <ul style="padding-left: 20px; margin: 0;">
-          <li style="margin-bottom: 10px;">Set up your profile picture</li>
-          <li style="margin-bottom: 10px;">Find and add your contacts</li>
-          <li style="margin-bottom: 10px;">Start a conversation</li>
-          <li style="margin-bottom: 0;">Share photos, videos, and more</li>
-        </ul>
-      </div>
-      
-      <div style="text-align: center; margin: 30px 0;">
-        <a href=${clientURL} style="background: linear-gradient(to right, #36D1DC, #5B86E5); color: white; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: 500; display: inline-block;">Open Messenger</a>
-      </div>
-      
-      <p style="margin-bottom: 5px;">If you need any help or have questions, we're always here to assist you.</p>
-      <p style="margin-top: 0;">Happy messaging!</p>
-      
-      <p style="margin-top: 25px; margin-bottom: 0;">Best regards,<br>The Messenger Team</p>
-    </div>
-    
-    <div style="text-align: center; padding: 20px; color: #999; font-size: 12px;">
-      <p>© 2025 Messenger. All rights reserved.</p>
-      <p>
-        <a href="#" style="color: #5B86E5; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-        <a href="#" style="color: #5B86E5; text-decoration: none; margin: 0 10px;">Terms of Service</a>
-        <a href="#" style="color: #5B86E5; text-decoration: none; margin: 0 10px;">Contact Us</a>
+
+  <body style="font-family: 'Segoe UI', Tahoma, sans-serif; margin:0; padding:0; background:#f0f4f3;">
+
+    <!-- Header -->
+    <div style="background: linear-gradient(135deg, #2ECC71, #27AE60); padding: 40px 20px; text-align:center; border-radius:0 0 20px 20px;">
+      <img 
+        src="https://cdn-icons-png.flaticon.com/512/160/160138.png"
+        alt="FluxChat Logo"
+        style="width:90px; height:90px; background:white; border-radius:20px; padding:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);"
+      />
+      <h1 style="color:white; font-size:30px; margin-top:20px; font-weight:600;">
+        Welcome to FluxChat!
+      </h1>
+      <p style="color:#e8ffe9; font-size:16px; margin:5px 0 0;">
+        Real-time messaging. Simple. Fast. Secure.
       </p>
     </div>
+
+    <!-- Main Content -->
+    <div style="max-width:600px; margin:0 auto; background:white; padding:30px; border-radius:20px; margin-top:-15px; box-shadow:0 4px 18px rgba(0,0,0,0.08);">
+      
+      <p style="font-size:18px; color:#27AE60;"><strong>Hello ${name},</strong></p>
+
+      <p style="color:#555; font-size:15px; line-height:1.7;">
+        We're excited to welcome you to <strong>FluxChat</strong> — your new home for smooth, fast, and modern conversations. Stay connected with the people that matter most, all in real time.
+      </p>
+
+      <!-- Highlight Box -->
+      <div style="background:#f3fbf5; border-left:5px solid #2ECC71; padding:22px; border-radius:12px; margin:25px 0;">
+        <p style="margin:0 0 12px; font-size:16px; font-weight:600; color:#2ECC71;">
+          Here's how to get started:
+        </p>
+        <ul style="margin:0; padding-left:18px; color:#555;">
+          <li style="margin-bottom:8px;">Upload your profile picture</li>
+          <li style="margin-bottom:8px;">Find and add your contacts</li>
+          <li style="margin-bottom:8px;">Start your first chat instantly</li>
+          <li>Share images and enjoy a clean, refreshing UI</li>
+        </ul>
+      </div>
+
+      <!-- Button -->
+      <div style="text-align:center; margin:35px 0;">
+        <a href="${clientURL}"
+          style="background:#2ECC71; background: linear-gradient(135deg,#2ECC71,#27AE60); color:white; padding:14px 34px; text-decoration:none; border-radius:50px; font-size:16px; font-weight:600; display:inline-block; box-shadow:0 4px 14px rgba(46,204,113,0.4);">
+          Open FluxChat
+        </a>
+      </div>
+
+      <p style="color:#555; font-size:15px; line-height:1.7; margin-top:0;">
+        Need help or have questions? The team at FluxChat is always here for you.
+      </p>
+
+      <p style="margin-top:25px; font-size:15px; color:#444;">
+        Best regards,<br/>
+        <strong>The FluxChat Team</strong>
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center; padding:25px 0; color:#999; font-size:12px;">
+      <p style="margin:0;">© 2025 FluxChat. All rights reserved.</p>
+      <p style="margin:8px 0 0;">
+        <a href="#" style="color:#27AE60; margin:0 10px; text-decoration:none;">Privacy Policy</a>
+        <a href="#" style="color:#27AE60; margin:0 10px; text-decoration:none;">Terms of Service</a>
+        <a href="#" style="color:#27AE60; margin:0 10px; text-decoration:none;">Support</a>
+      </p>
+    </div>
+
   </body>
   </html>
   `;
