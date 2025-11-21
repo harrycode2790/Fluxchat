@@ -40,39 +40,32 @@ export const sendMessage = async (req, res) => {
     const senderId = req.user._id;
 
     if (!text && !image) {
-      return res.status(400).json({ message: "text or image is required" });
+      return res.status(400).json({ error: "Message or image required" });
     }
 
     if (senderId.equals(receiverId)) {
-      return res.status(400).json({ message: "Cannot send image to yourself" });
+      return res.status(400).json({ error: "Cannot message yourself" });
     }
 
-    const receiverExists = await User.exists({ _id: receiverId });
-    if (!receiverExists) {
-      return res.status(400).json({ message: "User not found" });
+    const receiver = await User.findById(receiverId);
+    if (!receiver) {
+      return res.status(404).json({ error: "User not found" });
     }
 
-    let imageUrl;
-    if (image) {
-      // upload base64 image to cloudinary
-      const uploadResponse = await cloudinary.uploader.upload(image);
-      imageUrl = uploadResponse.secure_url;
-    }
-
-    const newMessage = new Message({
+    const newMessage = await Message.create({
       senderId,
       receiverId,
       text,
-      image: imageUrl,
+      image, // already the Cloudinary URL
     });
 
-    await newMessage.save();
-
-    res.status(201).json(newMessage);
-
-    // todo : send message to user if online in real time with socket.io
-  } catch (error) {
-    console.log("Error is sending message", error.message);
+    return res.status(201).json({
+      success: true,
+      message: newMessage,
+    });
+  } catch (err) {
+    console.error("Error sending message:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
