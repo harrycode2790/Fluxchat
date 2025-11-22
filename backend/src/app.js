@@ -8,7 +8,6 @@ import messageRouter from "./routes/message.routes.js";
 import connectDB from "./lib/db.js";
 import { ENV } from "./lib/env.js";
 import userRouter from "./routes/user.routes.js";
-import { arcjectMiddleware } from "./middlewares/arcject.middleware.js";
 import { app, server } from "./lib/socket.js";
 
 
@@ -20,7 +19,6 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 ; // middleware to parse JSON bodies
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(cookieParser()); // middleware to parse cookies
-app.use(arcjectMiddleware); // middleware FRom aject
 // routes
 app.use("/api/v1/auth/", authRouter);
 app.use("/api/v1/messages/", messageRouter);
