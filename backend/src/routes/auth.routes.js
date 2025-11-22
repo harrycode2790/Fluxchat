@@ -11,13 +11,6 @@ authRouter.post("/login", login);
 
 authRouter.post("/logout", logout);
 
-authRouter.get("/check", authorize, (req, res) =>
-  res.status(200).json({
-    _id: req.user.userId,
-    fullName: req.user.fullName,
-    role: req.user.role
-  })
-);
-
+authRouter.get("/check", authorize, (req, res) => res.status(200).json(req.user) )
 
 export default authRouter;
