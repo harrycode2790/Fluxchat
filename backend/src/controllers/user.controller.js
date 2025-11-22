@@ -21,3 +21,5 @@ export const updateUserProfilePic = async (req, res) => {
   }
 };
 
+
+export const getAllUsers = async () => {}

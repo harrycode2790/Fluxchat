@@ -15,29 +15,42 @@ function ChatContainer() {
     subscribeToMessages,
     unsubscribeFromMessages,
   } = useChatStore();
+
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
 
+  // -----------------------------
+  // Load Messages on Selected User Change
+  // -----------------------------
   useEffect(() => {
+    if (!selectedUser?._id) return;
+
+    // Fetch messages
     getMessagesByUserId(selectedUser._id);
-    subscribeToMessages()
 
-    // clean up 
-    return () => unsubscribeFromMessages()
-  }, [getMessagesByUserId, selectedUser, subscribeToMessages, unsubscribeFromMessages]);
+    // Subscribe to realtime updates
+    subscribeToMessages();
 
+    // Cleanup listener when user switches
+    return () => unsubscribeFromMessages();
+  }, [selectedUser?._id]); // ONLY run when selected user actually changes
+
+  // -----------------------------
+  // Auto-scroll when messages change
+  // -----------------------------
   useEffect(() => {
-    if (messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    const el = messageEndRef.current;
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
     <>
       <ChatHeader />
+
       <div className="flex-1 px-6 overflow-y-auto py-8">
         {messages.length > 0 && !isMessagesLoading ? (
           <div className="max-w-3xl mx-auto space-y-6">
+
             {messages.map((msg) => (
               <div
                 key={msg._id}
@@ -59,9 +72,11 @@ function ChatContainer() {
                       className="rounded-lg h-48 object-cover"
                     />
                   )}
+
                   {msg.text && <p className="mt-2">{msg.text}</p>}
+
                   <p className="text-xs mt-1 opacity-75 flex items-center gap-1">
-                    {new Date(msg.createdAt).toLocaleTimeString(undefined, {
+                    {new Date(msg.createdAt).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
@@ -69,13 +84,14 @@ function ChatContainer() {
                 </div>
               </div>
             ))}
-            {/* 👇 scroll target */}
+
+            {/* Scroll anchor */}
             <div ref={messageEndRef} />
           </div>
         ) : isMessagesLoading ? (
           <MessagesLoadingSkeleton />
         ) : (
-          <NoChatHistoryPlaceholder name={selectedUser.fullName} />
+          <NoChatHistoryPlaceholder name={selectedUser?.fullName} />
         )}
       </div>
 
